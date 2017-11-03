@@ -5,13 +5,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link href="/xyw2/static/css/form.css" rel="stylesheet" type="text/css" />
+<title>校游网-个人信息</title>
 </head>
 <body>
 	<c:if test="${crtuid == null }">
 		<jsp:forward page="/error"></jsp:forward>
 	</c:if>
-	<form action="/xyw2/user/modify" method="post">
+	<form action="/xyw2/user/modify" method="post" class="bootstrap-frm">
 
 		utel:<input type="text" name="utel" value="${crtuser.utel}" /><br>
 		uemail:<input type="text" name="uemail" readonly="readonly"

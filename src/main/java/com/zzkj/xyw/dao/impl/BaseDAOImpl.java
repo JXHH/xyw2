@@ -3,6 +3,7 @@ package com.zzkj.xyw.dao.impl;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -150,4 +151,28 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 				pageNow * pageSize, pageSize);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<T> find(String hql, Object value) {
+		// TODO Auto-generated method stub
+		return (List<T>) getHibernateTemplate().find(hql, value);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<T> find(String hql, Object[] value){
+		 System.out.println(Arrays.toString(value));
+
+		return (List<T>) getHibernateTemplate().find(hql,value);
+	}
+	
+	public List findCol(final String hql) {
+		// TODO Auto-generated method stub
+		@SuppressWarnings("unchecked")
+		List list = getHibernateTemplate().execute(new HibernateCallback() {
+			public List doInHibernate(Session session) {
+				Query query = session.createQuery(hql);
+				return query.list();
+			}
+		});
+		return list;
+	}
 }

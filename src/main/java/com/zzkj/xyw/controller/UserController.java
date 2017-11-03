@@ -1,10 +1,20 @@
 package com.zzkj.xyw.controller;
 
+import java.io.IOException;
 import java.util.List;
 
+import javax.mail.internet.MimeMessage;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,6 +78,7 @@ public class UserController {
 		if (!li.isEmpty()) {
 			session.setAttribute("crtuid", li.get(0).getUid());
 			session.setAttribute("crtuser", li.get(0));
+			model.addAttribute("crtuser", li.get(0));
 			return "redirect:/index";
 		} else {
 
@@ -181,4 +192,41 @@ public class UserController {
 
 		return "/manage/user";
 	}
-}
+	
+	// mail
+		@RequestMapping(value = "/mail")
+		public String mail() {
+
+			return "mail";
+		}
+
+	// mail
+		@RequestMapping(value = "/forget")
+		public String forget() {
+
+			return "forget";
+		}
+		//发邮件
+		@RequestMapping(value = "/doMail")
+		public static void doMail(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ServletException, IOException {	
+			final String uemail = request.getParameter("uemail");
+			session.setAttribute("uemail", uemail);
+			ApplicationContext actx = new ClassPathXmlApplicationContext(
+					"spring-mail.xml");
+					JavaMailSender jms = (JavaMailSender)actx.getBean("mailSender");
+					jms.send(new MimeMessagePreparator() {
+						public void prepare(MimeMessage mimeMessage) throws Exception {
+							MimeMessageHelper mmh = new MimeMessageHelper(mimeMessage,true,"UTF-8");
+							// 发送人,收件人,主题,内容
+							mmh.setFrom("654819598@qq.com");
+							mmh.setTo(uemail);
+							mmh.setSubject("校游网-重置密码");
+							mmh.setText("<html><head><meta http-equiv='keywords' content='keyword1,keyword2,keyword3'>" +
+							          "<meta http-equiv='description' content='this is my page'><meta http-equiv='content-type' content='text/html; charset=UTF-8'>" +
+							          "</head><body>尊敬的用户：<br>您好！<br>您正在进行找回密码操作，请点击下面的链接修改密码:<br><a href='http://localhost:8080/xyw2/mail'>http://localhost:8080/xyw2/mail</a>" +
+							          "<br><br><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp校游网客户服务中心</body></html>", true);
+						}
+					});
+					request.getRequestDispatcher("/success").forward(request, response);		
+		}
+		}

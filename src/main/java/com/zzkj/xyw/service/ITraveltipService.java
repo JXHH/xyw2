@@ -17,14 +17,17 @@ public interface ITraveltipService {
 
 	// R
 
-	// 
+	//
 	public List<Traveltip> findByPage(int pageNow, int pageSize);
-	
-	public List<Traveltip> findByPage(int pageNow, int pageSize, Criterion... criterion);
 
-	public int cnt(Integer pageNow, int pageSize, 
-			List<Traveltip> traveltipList,HttpSession session);
-	
+	public List<Traveltip> findByPage(int pageNow, int pageSize,
+			Criterion... criterion);
+
+	public List<Traveltip> findByScene(int pageNow, int pageSize,
+			 			Criterion... c);
+	public int cnt(Integer pageNow, int pageSize,
+			List<Traveltip> traveltipList, HttpSession session);
+
 	public Traveltip findById(int ttid);
 
 	public List<Traveltip> findAll(List<Integer> ttids);
@@ -37,8 +40,6 @@ public interface ITraveltipService {
 
 	// cnt
 	public int ttCnt();
-	
-	public int cnt(Criterion criterion);
-	
 
+	public int cnt(Criterion criterion);
 }

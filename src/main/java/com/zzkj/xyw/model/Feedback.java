@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 // 反馈
 @Entity
 @Table(name = "feedback")
@@ -16,18 +15,22 @@ public class Feedback {
 	@GeneratedValue
 	@Column(name = "fid", nullable = false)
 	private int fid;
-	
+
 	@GeneratedValue
-	@Column(name = "ftime", nullable = false)
+	@Column(name = "ftime", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
 	private String ftime;
-	
+
 	@GeneratedValue
 	@Column(name = "fcontent", nullable = false)
 	private String fcontent;
-	
+
 	@GeneratedValue
 	@Column(name = "ftel", nullable = true)
 	private String ftel;
+
+	@GeneratedValue
+	@Column(name = "fstate", nullable = false)
+	private int fstate = 0;
 
 	public int getFid() {
 		return fid;
@@ -60,7 +63,13 @@ public class Feedback {
 	public void setFtel(String ftel) {
 		this.ftel = ftel;
 	}
-	
-	
-	
+
+	public int getFstate() {
+		return fstate;
+	}
+
+	public void setFstate(int fstate) {
+		this.fstate = fstate;
+	}
+
 }

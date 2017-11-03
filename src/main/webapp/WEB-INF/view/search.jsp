@@ -14,12 +14,12 @@
 		按热度升序<input type="radio" name="sort" value="11">
 		按时间降序<input type="radio" name="sort" value="00">
 		按时间升序<input type="radio" name="sort" value="01">
-		城市
-		<input type="checkbox" name="city" value="北京">
-		<input type="checkbox" name="city" value="上海">
-		<input type="checkbox" name="city" value="南京">
+		城市：
+		<input type="checkbox" name="city" value="北京">北京
+		<input type="checkbox" name="city" value="上海">上海
+		<input type="checkbox" name="city" value="南京">南京
 		<input type="text" name="keyword" value="${search.keyword }"/>
-		<input type="submit">
+		<input type="submit" value="搜索">
 	</form>
 	
 	<c:forEach items="${ttopList }" var="ttop">

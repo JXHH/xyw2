@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 // 景点
 @Entity
 @Table(name = "scene")
@@ -16,19 +15,30 @@ public class Scene {
 	@GeneratedValue
 	@Column(name = "sid", nullable = false)
 	private int sid;
-	
+
 	@GeneratedValue
 	@Column(name = "sintrod", nullable = false)
 	private String sintrod;
-	
-	
+
 	@GeneratedValue
 	@Column(name = "spic", nullable = false)
-	private String spic="/scenepic/default.jpg";
-	
+	private String spic = "/scenepic/default.jpg";
+
 	@GeneratedValue
-	@Column(name = "sname", nullable = false)
-	private String sname;
+	@Column(name = "scity", nullable = false)
+	private String scity;
+
+	@GeneratedValue
+	@Column(name = "sprovince", nullable = true)
+	private String sprovince;
+
+	@GeneratedValue
+	@Column(name = "sview", nullable = false)
+	private int sview = 0;
+
+	@GeneratedValue
+	@Column(name = "sfpy", nullable = true)
+	private String sfpy;
 
 	public int getSid() {
 		return sid;
@@ -54,14 +64,36 @@ public class Scene {
 		this.spic = spic;
 	}
 
-	public String getSname() {
-		return sname;
+	public String getScity() {
+		return scity;
 	}
 
-	public void setSname(String sname) {
-		this.sname = sname;
+	public void setScity(String scity) {
+		this.scity = scity;
 	}
 
-	
-	
+	public String getSprovince() {
+		return sprovince;
+	}
+
+	public void setSprovince(String sprovince) {
+		this.sprovince = sprovince;
+	}
+
+	public int getSview() {
+		return sview;
+	}
+
+	public void setSview(int sview) {
+		this.sview = sview;
+	}
+
+	public String getSfpy() {
+		return sfpy;
+	}
+
+	public void setSfpy(String sfpy) {
+		this.sfpy = sfpy;
+	}
+
 }

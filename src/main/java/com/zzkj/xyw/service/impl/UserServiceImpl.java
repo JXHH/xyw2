@@ -1,5 +1,6 @@
 package com.zzkj.xyw.service.impl;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,37 @@ public class UserServiceImpl implements IUserService {
 
 		return userDao.findById(uid);
 	}
+	
 
+	public List<User> queryUser(String uname,String sex,int age1,int age2) {
+		 List<User> list1=null;
+		 List<User> list2=null;
+		 List<User> list3=null;
+		 Calendar a=Calendar.getInstance();
+		 int uage1 = a.get(Calendar.YEAR) - age1;//大年份
+	     int uage2 = a.get(Calendar.YEAR) - age2;//小年份
+	     System.out.println(uage1);
+	     String hql="from User u where year(u.ubirth)>=?  and year(u.ubirth) <= ?";
+	     System.out.println(hql);
+	     list1 = userDao.find(hql,new Object[]{uage2, uage1});
+	     System.out.println(list1.size());
+		 if(uname != null)
+	    {
+			hql = "from User u where u.uname like ?";
+	    	list2 = userDao.find(hql, "%" +uname+ "%");
+	    	System.out.println(list2.size());
+	    	list1.retainAll(list2);
+	    
+	    }
+		 if(sex == null){
+			  return list1;
+		 }
+		 else
+	    {
+			hql = "from User u where u.usex=?";
+		    list3 = userDao.find(hql, sex);
+		    list1.retainAll(list3);
+		}
+       return list1;
+	}
 }

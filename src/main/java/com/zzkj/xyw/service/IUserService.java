@@ -17,4 +17,7 @@ public interface IUserService {
 	public int userCnt();
 
 	public void update(User user);
+	
+	public List<User> queryUser(String uname, String usex,int age1, int age2);
+
 }
