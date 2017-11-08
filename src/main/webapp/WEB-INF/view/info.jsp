@@ -6,6 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="/xyw2/static/css/form.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="/xyw2/static/img/little.ico"/>
 <title>校游网-个人信息</title>
 </head>
 <body>

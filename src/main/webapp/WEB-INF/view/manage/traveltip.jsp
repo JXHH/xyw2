@@ -5,21 +5,21 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>校游网-后台-攻略列表</title>
 <meta name="description" content="这是一个 index 页面">
 <meta name="keywords" content="index">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="renderer" content="webkit">
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="icon" type="image/png" href="/xyw2/assets/i/favicon.png">
+<link rel="icon" type="image/png" href="/xyw2/static/assets/i/favicon.png">
 <link rel="apple-touch-icon-precomposed"
-	href="/xyw2/assets/i/app-icon72x72@2x.png">
+	href="/xyw2/static/assets/i/app-icon72x72@2x.png">
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-<link rel="stylesheet" href="/xyw2/assets/css/amazeui.min.css" />
-<link rel="stylesheet" href="/xyw2/assets/css/admin.css">
-<script src="/xyw2/assets/js/jquery.min.js"></script>
-<script src="/xyw2/assets/js/app.js"></script>
+<link rel="stylesheet" href="/xyw2/static/assets/css/amazeui.min.css" />
+<link rel="stylesheet" href="/xyw2/static/assets/css/admin.css">
+<script src="/xyw2/static/assets/js/jquery.min.js"></script>
+<script src="/xyw2/static/assets/js/app.js"></script>
 </head>
 <body>
 <c:if test="${crtmid == null }">
@@ -27,7 +27,7 @@
 	</c:if>
 
 <header class="am-topbar admin-header">
-  <div class="am-topbar-brand"><img src="assets/i/logo.png"></div>
+  <div class="am-topbar-brand"><img src="/xyw2/static/assets/i/logo.png"></div>
   <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
     <ul class="am-nav am-nav-pills am-topbar-nav admin-header-list">
  <li class="soso">
@@ -47,36 +47,35 @@
     </ul>
   </div>
 </header>
-
 <div class="am-cf admin-main"> 
 <div class="nav-navicon admin-main admin-sidebar">
     <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：校游网</div>
     <div class="sideMenu">
-           <h3 class="am-icon-flag"><em></em>攻略管理</h3>
+      <h3 class="am-icon-flag"><em></em>攻略管理</h3>
       <ul>
-        <li><a href="traveltip.html">攻略列表</a></li>
+        <li><a href="/xyw2/manage/traveltip">攻略列表</a></li>
       </ul>
       <h3 class="am-icon-cart-plus"><em></em>预约记录管理</h3>
       <ul>
         <li><a href="reservation.html">查看预约记录</a></li>
       </ul>
-      <h3 class="am-icon-gears"><em></em><a href="">公告管理</a></h3>
+      <h3 class="am-icon-gears"><em></em><a href="/xyw2/manage/notice/">公告管理</a></h3>
       <ul>
         <li><a href="/xyw2/manage/addNotice">发布公告</a> </li>
         <li><a href="/xyw2/manage/notice/">公告列表</a></li>
       </ul>
         <h3 class="am-icon-gears"><em></em><a href="">景点管理</a></h3>
       <ul>
-        <li><a href="/xyw2/addScene">添加景点</a> </li>
+        <li><a href="/xyw2/manage/scene/add">添加景点</a> </li>
         <li><a href="/xyw2/manage/scene">景点列表</a></li>
       </ul>
       <h3 class="am-icon-users"><em></em>会员管理</h3>
       <ul>
-        <li><a href="/manage/user">会员列表</a></li>
+        <li><a href="/xyw2/manage/user">会员列表</a></li>
       </ul>
       <h3 class="am-icon-volume-up"><em></em>信息通知</h3>
       <ul>
-        <li><a href="/manage/feedback">查看反馈</a> </li>
+        <li><a href="/xyw2/manage/feedback">查看反馈</a> </li>
       </ul>
       <c:if test="${crtmid == 1}">
       <h3 class="am-icon-users"><em></em>员工管理</h3>
@@ -107,7 +106,7 @@
 			<div class="daohang">
 				<input type="submit"
 					class="am-btn am-btn-default am-radius am-btn-xs" name="Submit"
-					value="首页" onclick="window.location.href='admindex.html';">
+					value="首页" onclick="window.location.href='/xyw2/index';">
 					<input type="submit"
 					class="am-btn am-btn-default am-radius am-btn-xs" name="Submit"
 					value="修改信息" onclick="window.location.href='modifyinfo.html';">
@@ -140,6 +139,7 @@
 					<!--这里打开的是新页面-->
 				</div>
 				<form class="am-form am-g" action="/xyw2/manage/deleteTraveltip" method="post">
+					
 					<table width="100%"
 						class="am-table am-table-bordered am-table-radius am-table-striped am-table-hover">
 						<thead>
@@ -157,11 +157,11 @@
 								<th class="table-author am-hide-sm-only" name="osta">审核状态</th>
 							</tr>
 						</thead>
-						<tbody>
 						<c:forEach items="${traveltipList}" var="tt">
+						<tbody>
+						
 							<tr>
 								<td><input type="checkbox" name="ttid" value="${tt.ttid}"></td>
-
 								<td><c:out value="${tt.ttid}" /></td>
 								<td><c:out value="${tt.ttuid}" /></td>
 								<td><c:out value="${tt.ttime}" /></td>
@@ -172,25 +172,15 @@
 								<td><c:out value="${tt.ttcmt}" /></td>
 								<td class="am-hide-sm-only"><c:out value="${tt.ttischeck}" /></td>
 							</tr>
-							</c:forEach>
 						</tbody>
+						</c:forEach>
 					</table>
 					<div class="am-btn-group am-btn-group-xs">
-						<button type="button" class="am-btn am-btn-default">
-							<span class="am-icon-trash-o"></span>删除
-						</button>
-					</div>
-					<ul class="am-pagination am-fr">
-						<li class="am-disabled"><a href="#">«</a></li>
-						<li class="am-active"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#">»</a></li>
-					</ul>
-					<hr />
-				</form>
+					 <input type="submit" value="删除"/>
+						</div>
+						</form>
+						<ul class="am-pagination am-fr">
+			
 				共
 	<c:out value="${allPages}" />
 	页
@@ -204,6 +194,7 @@
 	<c:if test="${pageNow + 1 < allPages}">
 		<a href="/xyw2/manage/traveltip/${pageNow + 1}">下</a>
 	</c:if>
+	</ul>
 				</div>
 				</div>
 				</div>

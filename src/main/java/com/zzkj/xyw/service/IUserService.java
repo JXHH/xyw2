@@ -19,5 +19,7 @@ public interface IUserService {
 	public void update(User user);
 	
 	public List<User> queryUser(String uname, String usex,int age1, int age2);
+	
+	public List<User> findByEmail(String uemail);
 
 }

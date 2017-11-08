@@ -167,7 +167,7 @@ public class SceneController {
 		}
 		model.addAttribute("hotSceneList", hotSceneList);
 
-		return "/selfTraveltip";
+		return "/scene";
 	}
 
 	@RequestMapping("/user/scene/{first}")

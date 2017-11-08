@@ -4,8 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="/xyw2/static/img/little.ico"/>
 <title>校游网-登录</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="/xyw2/static/css/style.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/xyw2/static/js/jquery.js"></script>
 <script type="text/javascript" src="/xyw2/static/js/jquery.i18n.properties-1.0.9.js" ></script>
@@ -22,20 +24,22 @@
 			<div class="loginbox-title">
 				<h3>登录</h3>
 			</div>
-			<form action="doLogin" method="post" id="signupForm">
+			<form action="/xyw2/user/doLogin" method="post" id="signupForm">
 			<div class="login-error"></div>
 			<div class="row">
-				<input type="text" value="" class="input-text-user noPic input-click" name="uname" id="contact" placeholder="用户名">
+				<input type="text" value="" class="input-text-user noPic input-click" name="uname" id="uname" placeholder="用户名">
 			</div>
+			<br>
 			<div class="row">
-				<input type="password" value="" class="input-text-password noPic input-click" name="upsw" id="password" placeholder="密码">
+				<input type="password" value="" class="input-text-password noPic input-click" name="upsw" id="upsw" placeholder="密码">
 			</div>
+			<br>
 			<div class="row btnArea">
-			<input type="submit" value="提交"/>
-			<input type="reset" value="重置"/>
+			<input type="submit" class="btn btn-primary active btn-sm" value="提交"/>
+			<input type="reset" class="btn btn-default active btn-sm" value="重置"/>
 			</div>
 			<div class="row tips">
-				<a href="/xyw2/forget" class="link">忘记密码</a>
+				<a href="/xyw2/forget" class="link">忘记密码？</a>
 			</div>
 			</form>
 		</div>

@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="/xyw2/static/img/little.ico"/>
 <title>Insert title here</title>
 </head>
 <body>
-cannot access!
+请先登录!
 </body>
 </html>

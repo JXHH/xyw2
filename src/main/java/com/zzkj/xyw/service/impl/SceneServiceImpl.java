@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.zzkj.xyw.dao.ISceneDAO;
 import com.zzkj.xyw.model.Scene;
+import com.zzkj.xyw.model.User;
 import com.zzkj.xyw.service.ISceneService;
 
 @Service("sceneService")
@@ -49,6 +50,11 @@ public class SceneServiceImpl implements ISceneService {
 		// TODO Auto-generated method stub
 		return sceneDao.findById(id);
 	}
+	
+	public List<Scene> findByCity(String scity){
+		String hql = "from Scene s where s.scity=?";
+	   return sceneDao.find(hql, scity);
+	}
 
 	public List<Scene> topK(int k) {
 		// TODO Auto-generated method stub
@@ -61,6 +67,7 @@ public class SceneServiceImpl implements ISceneService {
 
 		return sceneDao.findAll(c);
 	}
+	
 
 	public List<List<Scene>> findAll() {
 		// TODO Auto-generated method stub

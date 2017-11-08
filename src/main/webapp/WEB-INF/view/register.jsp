@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="/xyw2/static/img/little.ico"/>
 <title>校游网-注册</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="/xyw2/static/css/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
 <script type="text/javascript" src="/xyw2/static/js/jquery.js"></script>
 <script type="text/javascript" src="/xyw2/static/js/jquery.i18n.properties-1.0.9.js" ></script>
 <script type="text/javascript" src="/xyw2/static/js/jquery-ui-1.10.3.custom.js"></script>
@@ -26,17 +28,21 @@
 			<div class="row">
 				<input type="text" value="" class="input-text-user noPic input-click" name="uname" id="uname" placeholder="用户名">
 			</div>
+			<br>
 			<div class="row">
 				<input type="password" value="" class="input-text-password noPic input-click" name="upsw" id="upsw" placeholder="密码">
 			</div>
+			<br>
 			<div class="row">
-				<input type="password" value="" class="input-text-password noPic input-click" name="upsw2" id="upsw2" placeholder="确认密码">
+				<input type="password" value="" class="input-text-password noPic input-click"  id="upsw2" placeholder="确认密码">
 			</div>
+			<br>
 			<div class="row">
-				<input type="text" value="" class="input-text-user noPic input-click" name="uem" id="uem" placeholder="邮箱">
+				<input type="text" value="" class="input-text-user noPic input-click" name="uemail" id="uemail" placeholder="邮箱">
 			</div>
+			<br>
 			<div class="row btnArea">
-				<input type="submit" value="注册">
+				<input type="submit" class="btn btn-primary active btn-sm" value="注册">
 			</div>
 			</form>
 		</div>

@@ -35,8 +35,6 @@ public class TraveltipServiceImpl implements ITraveltipService {
 		return traveltipDao.findByPage(pageNow, pageSize, "ttlike", false);
 	}
 
-	
-	
 	// 按查询条件查询攻略list
 	public int cnt(Integer pageNow, int pageSize,
 			List<Traveltip> traveltipList, HttpSession session) {
@@ -86,6 +84,10 @@ public class TraveltipServiceImpl implements ITraveltipService {
 				isAsc = false;
 			}
 		}
+		System.out.println(sort);
+		System.out.println(city);
+		System.out.println(kword);
+
 		// 合并所有查询条件
 		LogicalExpression le = Restrictions.and(Restrictions.or(se1, se2, se3),
 				secity);
@@ -116,6 +118,10 @@ public class TraveltipServiceImpl implements ITraveltipService {
 		tt2.setTtcity(tt.getTtcity());
 		tt2.setTtcontent(tt.getTtcontent());
 		tt2.setTtime(tt.getTtime());
+		tt2.setTtlike(tt.getTtlike());
+		tt2.setTtview(tt.getTtview());
+		tt2.setTtcmt(tt.getTtcmt());
+		tt2.setTttitle(tt.getTttitle());
 		// 修改后变为未审核
 		tt2.setTtischeck(0);
 		if (!"0".equals(tt.getTtpic())) {
@@ -143,11 +149,11 @@ public class TraveltipServiceImpl implements ITraveltipService {
 		return traveltipDao.findByPage(pageNow, pageSize, "ttime", false,
 				criterion);
 	}
-	
+
 	public List<Traveltip> findByScene(int pageNow, int pageSize,
-			 			Criterion... c) {
-			 		// TODO Auto-generated method stub
-			 		return traveltipDao.findByPage(pageNow, pageSize, "ttlike", false);
-			 	}
+			Criterion... c) {
+		// TODO Auto-generated method stub
+		return traveltipDao.findByPage(pageNow, pageSize, "ttlike", false);
+	}
 
 }

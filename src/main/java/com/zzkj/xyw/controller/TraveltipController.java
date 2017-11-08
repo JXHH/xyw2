@@ -3,6 +3,7 @@ package com.zzkj.xyw.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.criterion.Criterion;
@@ -16,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zzkj.xyw.model.Remark;
 import com.zzkj.xyw.model.Search;
@@ -25,11 +27,13 @@ import com.zzkj.xyw.model.TraveltipDetail;
 import com.zzkj.xyw.model.TraveltipOp;
 import com.zzkj.xyw.model.TtClt;
 import com.zzkj.xyw.model.TtLike;
+import com.zzkj.xyw.model.User;
 import com.zzkj.xyw.service.IRemarkService;
 import com.zzkj.xyw.service.ITopicService;
 import com.zzkj.xyw.service.ITraveltipService;
 import com.zzkj.xyw.service.ITtCltService;
 import com.zzkj.xyw.service.ITtLikeService;
+import com.zzkj.xyw.service.IUserService;
 import com.zzkj.xyw.util.ControllerUtil;
 import com.zzkj.xyw.util.UploadFile;
 
@@ -46,6 +50,8 @@ public class TraveltipController {
 	private ITopicService topicService;
 	@Autowired
 	private IRemarkService remarkService;
+	@Autowired
+	private IUserService userService;
 
 	// 管理界面攻略一览
 	@RequestMapping("/manage/traveltip")
@@ -148,7 +154,7 @@ public class TraveltipController {
 			traveltip.setTtpic(ttpic.substring(6));
 			traveltipService.update(traveltip);
 		}
-		return "/user/person/${crtuid}";
+		return "/success";
 	}
 
 	// 用户修改攻略页面
@@ -204,7 +210,7 @@ public class TraveltipController {
 	public String traveltipList(Integer pageNow, Model model,
 			HttpSession session) {
 
-		int pageSize = 2;
+		int pageSize = 4;
 		int cnt = 0;
 		if (pageNow == null) {
 			pageNow = 0;
@@ -235,16 +241,22 @@ public class TraveltipController {
 	// 关键字查找攻略
 	// 先在session中设置查询条件
 	@RequestMapping(value = "/search")
-	public String setSearch(Search sc, Model model, HttpSession session) {
-
+	public String setSearch(Search sc, Model model, HttpSession session, HttpServletRequest req) {
+        sc.setSort(req.getParameter("sort"));
+        System.out.println(sc.getSort());
+        if(sc.getKeyword() == null)
+        {
+        	sc.setKeyword("");
+        }
 		session.setAttribute("search", sc);
+		session.setAttribute("sort", sc.getSort());
 		return traveltipSearch(0, model, session);
 	}
 
 	public String traveltipSearch(Integer pageNow, Model model,
 			HttpSession session) {
 
-		int pageSize = 2;
+		int pageSize = 4;
 		int cnt = 0;
 		Integer crtuid = (Integer) session.getAttribute("crtuid");
 
@@ -255,13 +267,13 @@ public class TraveltipController {
 		// 没有找到符合条件的数据
 		if (cnt == 0) {
 			model.addAttribute("msg", "未找到符合条件的攻略！");
-			return "/search";
+			return "/traveltip";
 		}
 		ttopList = ttLikeService.findAll(traveltipList, crtuid);
 
 		ControllerUtil.addParam(model, pageSize, pageNow, ttopList, "ttopList",
 				cnt);
-		return "/search";
+		return "/traveltip";
 	}
 
 	// 查询攻略关键字keyword的传递
@@ -284,12 +296,10 @@ public class TraveltipController {
 		like.setLuid(luid);
 
 		ttLikeService.create(like);
-
 		// 攻略点赞数增加
 		Traveltip tt = traveltipService.findById(ttid);
-		tt.setTtlike(tt.getTtlike() + 1);
-		traveltipService.update(tt);
-
+		 tt.setTtlike(tt.getTtlike() + 1);
+		 traveltipService.update(tt);
 		return "/success";
 	}
 
@@ -301,7 +311,6 @@ public class TraveltipController {
 		int luid = (Integer) session.getAttribute("crtuid");
 
 		ttLikeService.delete("luid=" + luid + " and lttid=" + ttid);
-
 		Traveltip tt = traveltipService.findById(ttid);
 		tt.setTtlike(tt.getTtlike() - 1);
 		traveltipService.update(tt);
@@ -379,6 +388,8 @@ public class TraveltipController {
 		TraveltipOp ttop = new TraveltipOp();
 		List<Traveltip> traveltipList = new ArrayList<Traveltip>();
 		Traveltip tt = traveltipService.findById(ttid);
+		User user = userService.findById(tt.getTtuid());
+		model.addAttribute("user", user);
 		// 点开攻略详情 攻略浏览数加 1
 		tt.setTtview(tt.getTtview() + 1);
 		traveltipService.update(tt);
@@ -432,7 +443,7 @@ public class TraveltipController {
 	@RequestMapping("/user/person/{ttuid}")
 	public String selfTraveltip(@PathVariable int ttuid, Integer pageNow,
 			Model model, HttpSession session) {
-
+		session.setAttribute("ttuid", ttuid);
 		int pageSize = 3;
 		int cnt = 0;
 		if (pageNow == null) {
@@ -443,17 +454,24 @@ public class TraveltipController {
 		Integer crtuid = (Integer) session.getAttribute("crtuid");
 		Criterion c = Restrictions.eq("ttuid", ttuid);
 		traveltipList = traveltipService.findByPage(pageNow, pageSize, c);
-		if(traveltipList.size() == 0) {
-			 	model.addAttribute("msg", "无发表攻略！");
-			 	return "/person";
-			 	}
+
+		if (traveltipList.size() == 0) {
+
+			model.addAttribute("msg", "无发表攻略！");
+			return "/person";
+		}
+
 		// 用户对当前页攻略的操作记录list
 		ttopList = ttLikeService.findAll(traveltipList, crtuid);
 
 		cnt = traveltipService.cnt(c);
+
 		ControllerUtil.addParam(model, pageSize, pageNow, ttopList, "ttopList",
 				cnt);
-		session.setAttribute("ttuid", ttuid);
+
+		// 用户攻略总数
+		model.addAttribute("ttcnt", cnt);
+		
 		return "/person";
 	}
 

@@ -22,7 +22,7 @@ public class User {
 	private String upsw;
 
 	@Column(name = "uicon", nullable = false)
-	private String uicon = "/usericon/default.jepg";
+	private String uicon = "/usericon/default.jpeg";
 
 	@Column(name = "utel", nullable = true)
 	private String utel;

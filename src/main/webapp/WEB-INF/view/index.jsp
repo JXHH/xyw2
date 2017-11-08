@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="com.zzkj.xyw.model.*" 
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -6,64 +6,15 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
+<link rel="shortcut icon" href="/xyw2/static/img/little.ico"/>
 <title>校游网-首页</title>
 <style type="text/css">
 			@font-face {
 				font-family: font-eng;
 				src: url('yw4.ttf');
 			}
-div.search {padding: 10px 30px 10px;float:right;}
-
-		form {
-			position: relative;
-			width: 300px;
-			margin: 0 auto;
-		}
-
-		input, button {
-			border: none;
-			outline: none;
-		}
-
-		input {
-			width: 100%;
-			height: 42px;
-			padding-left: 13px;
-		}
-
-		button {
-			height: 42px;
-			width: 42px;
-			cursor: pointer;
-			position: absolute;
-		}			
-		.bar7 form {
-			height: 42px;
-		}
-		.bar7 input {
-			width: 250px;
-			border-radius: 42px;
-			border: 2px solid #324B4E;
-			background: #F9F0DA;
-			transition: .3s linear;
-			float: right;
-		}
-		.bar7 input:focus {
-			width: 300px;
-		}
-		.bar7 button {
-			background: none;
-			top: -2px;
-			right: 0;
-		}
-		.bar7 button:before{
-		  content: "\f002";
-		  font-family: FontAwesome;
-		  color: #324b4e;
-		}			
-		
-		</style>
-<meta name="description" content="">
+			img:hover{border:2px gray solid;}  
+</style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/xyw2/static/css/bootstrap.css">
 <link rel="stylesheet" href="/xyw2/static/css/font-awesome.min.css">
@@ -77,6 +28,10 @@ div.search {padding: 10px 30px 10px;float:right;}
 <script src="/xyw2/static/js/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
+<%
+   HttpSession u = request.getSession();  
+   User user = (User)u.getAttribute("crtuser");
+%>
 <header>
 	<div class="top-news">
 		   <div class="container-fluid">
@@ -108,22 +63,14 @@ div.search {padding: 10px 30px 10px;float:right;}
 										role="button" aria-haspopup="true" aria-expanded="false">攻略<span
 											class="caret"></span></a>
 										<ul class="dropdown-menu">
-											<li><a href="/xyw2/user/traveltip">攻略库</a></li>
-											<li><a href="/xyw2/addTraveltip">发表攻略</a></li>
+											<li><a target="_blank" href="/xyw2/user/traveltip">攻略库</a></li>
+											<li><a target="_blank" href="/xyw2/addTraveltip">发表攻略</a></li>
 										</ul></li>
-
-									<li class="dropdown"><a href="#"
-										class="sky-blue-nav dropdown-toggle" data-toggle="dropdown"
-										role="button" aria-haspopup="true" aria-expanded="false">景点<span
-											class="caret"></span></a>
-										<ul class="dropdown-menu">
-											<li><a href="/xyw2/user/scene">热门景点</a></li>
-										</ul></li>
-									<li><a class="red-nav" href="#">约游 </a></li>
+									<li class="sky-blue-nav"><a class="sky-blue-nav" target="_blank" href="/xyw2/user/scene">景点</a></li>
+									<li><a target="_blank" class="red-nav" href="/xyw2/queryUser">约游 </a></li>
 									<li><a class="green-nav" href="#">住宿</a></li>
 									<li><a class="sky-blue-nav" href="#">火车票 </a></li>
 									<li><a class="red-nav" href="#">机票</a></li>
-									<li><a class="pink-nav" href="/xyw2/user/feedback">反馈</a></li>
 									<li><a class="pink-nav" href="/xyw2/user/login">登录</a></li>
 									<li><a class="sky-blue-nav" href="/xyw2/user/register">注册</a></li>
 								</c:when>
@@ -135,41 +82,30 @@ div.search {padding: 10px 30px 10px;float:right;}
 										role="button" aria-haspopup="true" aria-expanded="false">攻略<span
 											class="caret"></span></a>
 										<ul class="dropdown-menu">
-											<li><a href="/xyw2/user/traveltip">攻略库</a></li>
-											<li><a href="/xyw2/addTraveltip">发表攻略</a></li>
+											<li><a target="_blank" href="/xyw2/user/traveltip">攻略库</a></li>
+											<li><a target="_blank" href="/xyw2/addTraveltip">发表攻略</a></li>
 										</ul></li>
-
-									<li class="dropdown"><a href="#"
-										class="sky-blue-nav dropdown-toggle" data-toggle="dropdown"
-										role="button" aria-haspopup="true" aria-expanded="false">景点<span
-											class="caret"></span></a>
-										<ul class="dropdown-menu">
-											<li><a href="/xyw2/user/scene">热门景点</a></li>
-										</ul></li>
-									<li><a class="red-nav" href="/xyw2/sendMessage">约游 </a></li>
+									<li class="sky-blue-nav"><a target="_blank" class="sky-blue-nav" href="/xyw2/user/scene">景点</a></li>
+									<li><a target="_blank" class="red-nav" href="/xyw2/queryUser">约游 </a></li>
 									<li><a class="green-nav" href="#">住宿</a></li>
 									<li><a class="sky-blue-nav" href="#">火车票 </a></li>
 									<li><a class="red-nav" href="#">机票</a></li>
-									<li><a class="pink-nav" href="/xyw2/user/feedback">反馈</a></li>
-									<li><a class="green-nav"
+									<li><a target="_blank" class="green-nav"
 										href="/xyw2/user/person/${crtuid}">个人中心</a></li>
-									<li><a class="white-nav" href="/xyw2/user/logout">注销</a></li>
-									<li>
-									<img style="border-radius:15px;" src="${crtuser.uicon}" width="60" height="60">
-									<!-- <form action="/xyw2/user/modifyIcon" method="post"
-										enctype="multipart/form-data">
-										<input type="file" name="file"> <input type="submit" value="修改头像"/>
-									</form> -->
-									</li>
+									<li><a target="_blank" class="pink-nav"
+										href="/xyw2//user/myInbox">我的消息</a></li>	
+ 									</ul>
+									<a target="_blank" href="/xyw2/user/perCenter">
+									<img style="border-radius:15px;float:right;margin:4px 50px 0 0;" src="<%=user.getUicon() %>" width="60" height="60">
+									</a>
 								</c:otherwise>
 							</c:choose>
-						</ul>
-						<div class="search bar7">
+					<!-- 	<div class="search bar7">
 						<form action="/xyw2/book/search/0" method="post">
 						<input type="text" name="keyword" placeholder="请输入您要搜索的内容...">
 						<button type="submit"></button>
 						</form>
-						</div>
+						</div> -->
 					</div><!--/.nav-collapse -->
 						  </nav>
 			      </div>
@@ -725,10 +661,11 @@ div.search {padding: 10px 30px 10px;float:right;}
 				<div class="col-md-5 col-sm-6">  
 					<div class="fbt">   
 						<h3 class="white text-uppercase text-bold hr-b mt-30"> 
-						<a href="#">联系我们</a> </h3>
+						<a class="white" style="font-size:22px" href="/xyw2/user/feedback">联系我们</a> </h3>
 						<p class="mt-40 f-gray">
 							电话：15638232505
 							地址：河南省郑州市高新区科学大道100号
+							<br>
 							e-mail：ieliangshuang@163.com
 						</p>
 					</div>
@@ -737,7 +674,6 @@ div.search {padding: 10px 30px 10px;float:right;}
 					<div class="fbt">
 						<div class="row">
 							<h3 class="white text-uppercase text-bold hr-b mt-30"> 景点 </h3>
-							
 							<div class="popular-tags mt-50">
 								<a href="#" class="btn btn-gray">北京</a>
 								<a href="#" class="btn btn-gray">上海</a>
@@ -746,17 +682,12 @@ div.search {padding: 10px 30px 10px;float:right;}
 								<a href="#" class="btn btn-gray">云南</a>
 							</div>
 						</div>
-						
-					
-					
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	
 </footer>
-
 <script src="/xyw2/static/js/jquery-1.11.3.min.js"></script>
 <script src="/xyw2/static/js/bootstrap.min.js"></script>
 <script src="/xyw2/static/js/owl.carousel.js"></script>

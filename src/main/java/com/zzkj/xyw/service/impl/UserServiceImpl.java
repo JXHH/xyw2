@@ -26,7 +26,12 @@ public class UserServiceImpl implements IUserService {
 		String hql = "from User u where u.uname=? and u.upsw=?";
 		return userDao.find(hql, new String[] { uname, upsw });
 	}
-
+	
+	public List<User> findByEmail(String uemail){
+		String hql = "from User u where u.uemail=?";
+	   return userDao.find(hql, uemail);
+	}
+	
 	public List<User> findByPage(int pageNow, int pageSize) {
 
 		return userDao.findByPage(pageNow, pageSize);
@@ -57,7 +62,7 @@ public class UserServiceImpl implements IUserService {
 		 int uage1 = a.get(Calendar.YEAR) - age1;//大年份
 	     int uage2 = a.get(Calendar.YEAR) - age2;//小年份
 	     System.out.println(uage1);
-	     String hql="from User u where year(u.ubirth)>=?  and year(u.ubirth) <= ?";
+	     String hql="from User u where (year(u.ubirth)>=?  and year(u.ubirth) <= ?) or u.ubirth is null";
 	     System.out.println(hql);
 	     list1 = userDao.find(hql,new Object[]{uage2, uage1});
 	     System.out.println(list1.size());
@@ -67,7 +72,6 @@ public class UserServiceImpl implements IUserService {
 	    	list2 = userDao.find(hql, "%" +uname+ "%");
 	    	System.out.println(list2.size());
 	    	list1.retainAll(list2);
-	    
 	    }
 		 if(sex == null){
 			  return list1;

@@ -8,11 +8,15 @@
 <link rel="shortcut icon" href="/xyw2/static/img/little.ico"/>
 <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 <link href="/xyw2/static/css/form.css" rel="stylesheet" type="text/css" />
+<link rel="shortcut icon" href="/xyw2/static/img/little.ico"/>
 <title>校游网-攻略-添加攻略</title>
 </head>
 <body>
 	<c:if test="${crtuid == null }">
-		<jsp:forward page="/error"></jsp:forward>
+	<script type="text/javascript" language="javascript">
+		alert("先登录吧~");
+		window.document.location.href="/xyw2/user/login";
+	</script>	
 	</c:if>
  		<form name="form" id="form" class="bootstrap-frm">
 <h1>添加攻略

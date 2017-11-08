@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.zzkj.xyw.model.User;
+import com.zzkj.xyw.service.IRealService;
 import com.zzkj.xyw.service.IUserService;
 import com.zzkj.xyw.util.ControllerUtil;
 import com.zzkj.xyw.util.UploadFile;
@@ -31,12 +32,19 @@ public class UserController {
 
 	@Autowired
 	private IUserService userService;
-
+	@Autowired
+	private IRealService realService;
 	// index
 	@RequestMapping(value = "/index")
 	public String index() {
 
 		return "index";
+	}
+	
+	@RequestMapping(value = "/user/perCenter")
+	public String perCenter() {
+
+		return "perCenter";
 	}
 
 	// 返回登录 view
@@ -110,6 +118,8 @@ public class UserController {
 
 		return "info";
 	}
+	
+
 
 	// 修改个人信息
 	@RequestMapping(value = "/user/modify")
@@ -117,7 +127,7 @@ public class UserController {
 			throws Exception {
 
 		User crtuser = (User) session.getAttribute("crtuser");
-
+		System.out.println(crtuser);
 		user.setUid(crtuser.getUid());
 		user.setUname(crtuser.getUname());
 		user.setUpsw(crtuser.getUpsw());
@@ -125,17 +135,17 @@ public class UserController {
 		user.setUsex(crtuser.getUsex());
 		user.setUisreal(crtuser.getUisreal());
 		user.setUicon(crtuser.getUicon());
+		userService.update(user);
+//		try {
+//			userService.update(user);
+//			session.setAttribute("crtuser", user);
+//			model.addAttribute("msg", "修改个人信息成功！");
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//			model.addAttribute("msg", "修改个人信息失败！");
+//		}
 
-		try {
-			userService.update(user);
-			session.setAttribute("crtuser", user);
-			model.addAttribute("msg", "修改个人信息成功！");
-		} catch (Exception e) {
-			// TODO: handle exception
-			model.addAttribute("msg", "修改个人信息失败！");
-		}
-
-		return "/info";
+		return "/perCenter";
 	}
 
 	// 修改头像
@@ -157,7 +167,24 @@ public class UserController {
 			model.addAttribute("msg", "修改头像失败！");
 		}
 
-		return "/index";
+		return "/perCenter";
+	}
+	
+	//修改用户密码
+	@RequestMapping(value = "/user/resetPsw")
+	public String modifyPswd(HttpSession session, HttpServletRequest request){
+		String uemail = (String) session.getAttribute("uemail");
+		List<User> list = userService.findByEmail(uemail);
+		if(list.size()!=0){
+		User user = list.get(0);
+		user.setUpsw(request.getParameter("upsw"));	
+		userService.update(user);
+		return "/xyw2/user/login";
+		}
+		else {
+			return "/xyw2/forget";
+		}
+		
 	}
 
 	// 管理用户页面
@@ -200,12 +227,20 @@ public class UserController {
 			return "mail";
 		}
 
-	// mail
+	// forget
 		@RequestMapping(value = "/forget")
 		public String forget() {
 
 			return "forget";
 		}
+		
+		// mail
+				@RequestMapping(value = "/test")
+				public String test() {
+
+					return "test";
+				}
+				
 		//发邮件
 		@RequestMapping(value = "/doMail")
 		public static void doMail(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws ServletException, IOException {	
@@ -227,6 +262,6 @@ public class UserController {
 							          "<br><br><br>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp校游网客户服务中心</body></html>", true);
 						}
 					});
-					request.getRequestDispatcher("/success").forward(request, response);		
+					request.getRequestDispatcher("/user/login").forward(request, response);		
 		}
 		}

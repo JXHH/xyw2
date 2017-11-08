@@ -27,7 +27,7 @@ public class Attention {
 	private int aduid;
 
 	@GeneratedValue
-	@Column(name = "atime", nullable = false)
+	@Column(name = "atime", columnDefinition ="timestamp default CURRENT_TIMESTAMP")
 	private String atime;
 
 	public int getAid() {
