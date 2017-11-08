@@ -5,29 +5,28 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>校游网-后台-审核攻略</title>
+<title>Insert title here</title>
 <meta name="description" content="这是一个 index 页面">
 <meta name="keywords" content="index">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="renderer" content="webkit">
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="icon" type="image/png" href="/xyw2/static/assets/i/favicon.png">
+<link rel="icon" type="image/png" href="/xyw2/assets/i/favicon.png">
 <link rel="apple-touch-icon-precomposed"
-	href="/xyw2/static/assets/i/app-icon72x72@2x.png">
+	href="/xyw2/assets/i/app-icon72x72@2x.png">
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-<link rel="stylesheet" href="/xyw2/static/assets/css/amazeui.min.css" />
-<link rel="stylesheet" href="/xyw2/static/assets/css/admin.css">
-<script src="/xyw2/static/assets/js/jquery.min.js"></script>
-<script src="/xyw2/static/assets/js/app.js"></script>
+<link rel="stylesheet" href="/xyw2/assets/css/amazeui.min.css" />
+<link rel="stylesheet" href="/xyw2/assets/css/admin.css">
+<script src="/xyw2/assets/js/jquery.min.js"></script>
+<script src="/xyw2/assets/js/app.js"></script>
 </head>
 <body>
 <c:if test="${crtmid == null }">
 		<jsp:forward page="/error"></jsp:forward>
 	</c:if>
-
-<header class="am-topbar admin-header">
-  <div class="am-topbar-brand"><img src="/xyw2/static/assets/i/logo.png"></div>
+	<header class="am-topbar admin-header">
+  <div class="am-topbar-brand"><img src="assets/i/logo.png"></div>
   <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
     <ul class="am-nav am-nav-pills am-topbar-nav admin-header-list">
  <li class="soso">

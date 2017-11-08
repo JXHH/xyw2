@@ -7,12 +7,12 @@
 <title>校游网-登录</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link href="/xyw2/static/css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/xyw2/static/assets/js/jquery.js"></script>
-<script type="text/javascript" src="/xyw2/static/assets/js/jquery.i18n.properties-1.0.9.js" ></script>
-<script type="text/javascript" src="/xyw2/static/assets/js/jquery-ui-1.10.3.custom.js"></script>
-<script type="text/javascript" src="/xyw2/static/assets/js/jquery.validate.js"></script>
-<script type="text/javascript" src="/xyw2/static/assets/js/md5.js"></script>
-<script type="text/javascript" src="/xyw2/static/assets/js/page_regist.js?lang=zh"></script>
+<script type="text/javascript" src="/xyw2/assets/js/jquery.js"></script>
+<script type="text/javascript" src="/xyw2/assets/js/jquery.i18n.properties-1.0.9.js" ></script>
+<script type="text/javascript" src="/xyw2/assets/js/jquery-ui-1.10.3.custom.js"></script>
+<script type="text/javascript" src="/xyw2/assets/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/xyw2/assets/js/md5.js"></script>
+<script type="text/javascript" src="/xyw2/assets/js/page_regist.js?lang=zh"></script>
 </head>
 <body class="loginbody">
 <div class="dataEye">

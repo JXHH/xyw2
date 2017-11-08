@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="com.zzkj.xyw.model.*"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,7 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%
+   HttpSession u = request.getSession();  
+   Manager crtmng = (Manager)u.getAttribute("crtmng");
+   int crtmid = (Integer)u.getAttribute("crtmid");
+%>
+<c:if test="${crtmid == null }">
+<script type="text/javascript" language="javascript">
+		alert("先登录吧~");
+		window.document.location.href="/xyw2/manage/login";
+	</script>	</c:if>
 	<form action="/ebook/manage/deleteTopic" method="post">
 		<table>
 			<c:forEach items="${topicList}" var="t">

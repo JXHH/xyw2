@@ -1,33 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" import="com.zzkj.xyw.model.*"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>校游网-后台-管理员列表</title>
+<title>校游网后台-员工</title>
 <meta name="description" content="这是一个 index 页面">
 <meta name="keywords" content="index">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="renderer" content="webkit">
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="icon" type="image/png" href="/xyw2/static/assets/i/favicon.png">
+<link rel="icon" type="image/png" href="/xyw2/assets/i/favicon.png">
 <link rel="apple-touch-icon-precomposed"
-	href="/xyw2/static/assets/i/app-icon72x72@2x.png">
+	href="/xyw2/assets/i/app-icon72x72@2x.png">
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-<link rel="stylesheet" href="/xyw2/static/assets/css/amazeui.min.css" />
-<link rel="stylesheet" href="/xyw2/static/assets/css/admin.css">
-<script src="/xyw2/static/assets/js/jquery.min.js"></script>
-<script src="/xyw2/static/assets/js/app.js"></script>
-</head>
-<body>
-<c:if test="${crtmid == null }">
-		<jsp:forward page="/error"></jsp:forward>
-	</c:if>
+<link rel="stylesheet" href="/xyw2/assets/css/amazeui.min.css" />
+<link rel="stylesheet" href="/xyw2/assets/css/admin.css">
+<script src="/xyw2/assets/js/jquery.min.js"></script>
+<script src="/xyw2/assets/js/app.js"></script>
 
-<header class="am-topbar admin-header">
-  <div class="am-topbar-brand"><img src="/xyw2/static/assets/i/logo.png"></div>
+	<!--[if lte IE 9]><p class="browsehappy">升级你的浏览器吧！ <a href="http://se.360.cn/" target="_blank">升级浏览器</a>以获得更好的体验！</p><![endif]-->
+</head>
+
+<body>
+<%
+   HttpSession u = request.getSession();  
+   Manager crtmng = (Manager)u.getAttribute("crtmng");
+   int crtmid = (Integer)u.getAttribute("crtmid");
+%>
+<c:if test="${crtmid == null }">
+<script type="text/javascript" language="javascript">
+		alert("先登录吧~");
+		window.document.location.href="/xyw2/manage/login";
+	</script>	</c:if>
+	<header class="am-topbar admin-header">
+  <div class="am-topbar-brand"><img src="/xyw2/assets/i/logo.png"></div>
   <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
     <ul class="am-nav am-nav-pills am-topbar-nav admin-header-list">
  <li class="soso">
@@ -49,7 +58,7 @@
 </header>
 <div class="am-cf admin-main"> 
 <div class="nav-navicon admin-main admin-sidebar">
-    <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：校游网</div>
+    <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：<%= crtmng.getMname()%></div>
     <div class="sideMenu">
       <h3 class="am-icon-flag"><em></em>攻略管理</h3>
       <ul>
@@ -57,7 +66,7 @@
       </ul>
       <h3 class="am-icon-cart-plus"><em></em>预约记录管理</h3>
       <ul>
-        <li><a href="">查看预约记录</a></li>
+        <li><a href="/xyw2/manage/doReserveCheck">查看预约记录</a></li>
       </ul>
       <h3 class="am-icon-gears"><em></em><a href="/xyw2/manage/notice/">公告管理</a></h3>
       <ul>
@@ -106,10 +115,7 @@
 			<div class="daohang">
 				<input type="submit"
 					class="am-btn am-btn-default am-radius am-btn-xs" name="Submit"
-					value="首页" onclick="window.location.href='/xyw2/index';">
-					<input type="submit"
-					class="am-btn am-btn-default am-radius am-btn-xs" name="Submit"
-					value="修改信息" onclick="window.location.href='modifyinfo.html';">
+					value="首页" onclick="window.location.href='/xyw2/manage/admindex';">
 					<input type="submit"
 					class="am-btn am-btn-default am-radius am-btn-xs" name="Submit"
 					value="注销" onclick="window.location.href='/xyw2/manage/logout';">
@@ -159,10 +165,19 @@
 				</div>
 				</div>
 				</div>
-				
-				<script src="assets/js/amazeui.min.js"></script>
-				<script type="text/javascript"  
-        src="http://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>  
+		<div style="text-align:center;clear:both">
+							共
+							<c:out value="${allPages}" />
+							页 &nbsp;| &nbsp;当前页：
+							<c:out value="${pageNow + 1}" />
+							<c:if test="${pageNow > 0}">
+								<a href="/xyw2/manage/manager/${pageNow - 1}">&nbsp;|&nbsp;上一页</a>
+							</c:if>
+							<c:if test="${pageNow + 1 < allPages}">
+								<a href="/xyw2/manage/manager/${pageNow + 1}">&nbsp;|&nbsp;下一页</a>
+							</c:if>
+							</div>		
+  <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
   
     <script type="text/javascript">  
         //checkbox 全选/取消全选  

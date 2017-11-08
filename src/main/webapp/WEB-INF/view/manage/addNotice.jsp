@@ -1,37 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"  import="com.zzkj.xyw.model.*"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>校游网-后台-添加公告</title>
-<meta name="description" content="这是一个 index 页面">
-<meta name="keywords" content="index">
+<title>校游网后台-公告-添加公告</title>
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <meta name="renderer" content="webkit">
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<link rel="icon" type="image/png" href="/xyw2/static/assets/i/favicon.png">
+<link rel="icon" type="image/png" href="/xyw2/assets/i/favicon.png">
 <link rel="apple-touch-icon-precomposed"
-	href="/xyw2/static/assets/i/app-icon72x72@2x.png">
+	href="/xyw2/assets/i/app-icon72x72@2x.png">
 <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-<link rel="stylesheet" href="/xyw2/static/assets/css/amazeui.min.css" />
-<link rel="stylesheet" href="/xyw2/static/assets/css/admin.css">
-<script src="/xyw2/static/assets/js/jquery.min.js"></script>
-<script src="/xyw2/static/assets/js/app.js"></script>
+<link rel="stylesheet" href="/xyw2/assets/css/amazeui.min.css" />
+<link rel="stylesheet" href="/xyw2/assets/css/admin.css">
+<script src="/xyw2/assets/js/jquery.min.js"></script>
+<script src="/xyw2/assets/js/app.js"></script>
 </head>
 <body>
+<%
+   HttpSession u = request.getSession();  
+   Manager crtmng = (Manager)u.getAttribute("crtmng");
+   int crtmid = (Integer)u.getAttribute("crtmid");
+%>
 <c:if test="${crtmid == null }">
-		<jsp:forward page="/error"></jsp:forward>
-	</c:if>
-
-<header class="am-topbar admin-header">
-  <div class="am-topbar-brand"><img src="/xyw2/static/assets/i/logo.png"></div>
+<script type="text/javascript" language="javascript">
+		alert("先登录吧~");
+		window.document.location.href="/xyw2/manage/login";
+	</script>	</c:if>
+	<header class="am-topbar admin-header">
+  <div class="am-topbar-brand"><img src="/xyw2/assets/i/logo.png"></div>
   <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
     <ul class="am-nav am-nav-pills am-topbar-nav admin-header-list">
  <li class="soso">
-<p>      
+<p>   
 	<select data-am-selected="{btnWidth: 70, btnSize: 'sm', btnStyle: 'default'}">
           <option value="b">全部</option>
           <option value="o">预约记录</option>
@@ -48,9 +52,10 @@
   </div>
 </header>
 
+
 <div class="am-cf admin-main"> 
 <div class="nav-navicon admin-main admin-sidebar">
-    <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：校游网</div>
+    <div class="sideMenu am-icon-dashboard" style="color:#aeb2b7; margin: 10px 0 0 0;"> 欢迎系统管理员：<%= crtmng.getMname()%> </div>
     <div class="sideMenu">
       <h3 class="am-icon-flag"><em></em>攻略管理</h3>
       <ul>
@@ -58,7 +63,7 @@
       </ul>
       <h3 class="am-icon-cart-plus"><em></em>预约记录管理</h3>
       <ul>
-        <li><a href="reservation.html">查看预约记录</a></li>
+        <li><a href="/xyw2/manage/doReserveCheck">查看预约记录</a></li>
       </ul>
       <h3 class="am-icon-gears"><em></em><a href="/xyw2/manage/notice/">公告管理</a></h3>
       <ul>
@@ -102,15 +107,13 @@
 </div>
 
 
+
 		<div class=" admin-content">
 
 			<div class="daohang">
 				<input type="submit"
 					class="am-btn am-btn-default am-radius am-btn-xs" name="Submit"
-					value="首页" onclick="window.location.href='/xyw2/index';">
-					<input type="submit"
-					class="am-btn am-btn-default am-radius am-btn-xs" name="Submit"
-					value="修改信息" onclick="window.location.href='modifyinfo.html';">
+					value="首页" onclick="window.location.href='/xyw2/manage/admindex';">
 					<input type="submit"
 					class="am-btn am-btn-default am-radius am-btn-xs" name="Submit"
 					value="注销" onclick="window.location.href='/xyw2/manage/logout';">
@@ -119,48 +122,75 @@
 			<div class="admin-biaogelist">
 
 				<div class="listbiaoti am-cf">
-					<ul class="am-icon-flag on">发布推送
+					<ul class="am-icon-flag on">发布公告
 					</ul>
 					<dl class="am-icon-home" style="float: right;">
-						当前位置： 首页 > 公告推送>
-						<a href="addnotice.html">发布推送</a>
+						当前位置： 首页 > 公告管理>
+						<a href="addnotice.html">发布公告</a>
 					</dl>
 					<!--这里打开的是新页面-->
 				</div>
 				<div class="fbneirong">
-				<form action="/xyw2/manage/notice/add" method="post">
+				<form name="form" id="form" method="post">
 						<div class="am-form-group am-cf">
 							<div class="zuo">标题：</div>
 							<div class="you">
-								<input type="text" class="ntitle" id="doc-ipt-email-1"
+								<input type="text" class="ntitle" id="ntitle"
 									name="ntitle" placeholder="请输入标题">
 							</div>
 						</div>
 						<div class="am-form-group am-cf">
 							<div class="zuo">内容：</div>
-							<div class="you">
-								<textarea class="" rows="10" id="doc-ta-1" name="ncontent"></textarea>
-							</div>
+							<br><br>
+							<div id="editor">
+    						</div>
 						</div>
 						<div class="am-form-group am-cf">
 							<div class="you">
-								<input type="hidden" name="nmid" value="${crtmid }">
+								<input type="hidden" name="nmid" id="nmid" value="${crtmid }">
 							</div>
 						</div>
 						<div class="am-form-group am-cf">
 							<div class="you" style="margin-left: 11%;">
-								<button type="submit" class="am-btn am-btn-success am-radius">发布并关闭窗口</button>
-								&nbsp; &raquo; &nbsp;
-								<button type="submit" class="am-btn am-btn-secondary am-radius">发布并继续发布</button>
-
+							<button type="button" id='send' class="am-btn am-btn-success am-radius" onclick="javascript:addNotice()">
+										发布
+							</button>
 							</div>
 						</div>
+			
 					</form>
+					<script type="text/javascript" src="/xyw2/static/js/wangEditor.min.js"></script>
+    <script type="text/javascript">
+    	var E = window.wangEditor;
+        var editor = new E('#editor');
+        editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
+        editor.customConfig.showLinkImg = false
+        editor.create();
+        function addNotice(){
+    		var nmid = document.getElementById("nmid").value;
+    		var ntitle = document.getElementById("ntitle").value;
+    		var ncontent = editor.txt.html();
+    		var formdata=new FormData( ); 
+    		formdata.append ("nmid" , nmid);
+    		formdata.append ("ntitle" , ntitle);
+    		formdata.append ("ncontent" , ncontent);
+    		 $.ajax({
+    	            url: "/xyw2/manage/notice/add",
+    	            type: "post",
+    	            data : formdata,
+    	            cache : false,
+    	            processData : false, // 不处理发送的数据，因为data值是Formdata对象，不需要对数据做处理
+    	            contentType : false, // 不设置Content-type请求头
+    	           /*  success: function(msg){
+    	                alert(msg);
+    	              } */
+    	        });
+    	}
+        </script>
 				</div>
 				</div>
 				</div>
 				</div>
-				<script src="assets/js/amazeui.min.js"></script>
-	</form>
+	<script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
 </body>
 </html>

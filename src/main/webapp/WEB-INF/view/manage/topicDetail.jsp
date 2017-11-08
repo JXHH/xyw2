@@ -1,6 +1,5 @@
-
 <%@page import="com.zzkj.xyw.service.IManagerService"%>
-<%@page import="com.zzkj.xyw.service.IUserService"%>
+<%@page import="com.zzkj.xyw.service.IUserService,com.zzkj.xyw.model.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,6 +10,16 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+   HttpSession u = request.getSession();  
+   Manager crtmng = (Manager)u.getAttribute("crtmng");
+   int crtmid = (Integer)u.getAttribute("crtmid");
+%>
+<c:if test="${crtmid == null }">
+<script type="text/javascript" language="javascript">
+		alert("先登录吧~");
+		window.document.location.href="/xyw2/manage/login";
+	</script>	</c:if>
 	<c:out value="${topic.tid }"></c:out>
 	<form action="/ebook/manage/addRemark" method="post">
 		<input type="text" name="rcontent" /> <input type="hidden"
