@@ -89,6 +89,25 @@ public class BaseDAOImpl<T, PK extends Serializable> extends
 			}
 		});
 	}
+	
+	//批量修改消息表
+	public void update(String[] ids, String idName, int statu, String name){
+		String str = "";
+		for (int i = 0; i < ids.length; i++) {
+			str += "'" + ids[i] + "'";
+			if (i != (ids.length - 1))
+				str += ",";
+		}
+		final String hql = "update Message set " + name + " = " + statu + " where " + idName + " in ( " + str + " )";
+		getHibernateTemplate().execute(new HibernateCallback<T>() {
+
+			public T doInHibernate(Session session) {
+				Query query = session.createQuery(hql);
+				query.executeUpdate();
+				return null;
+			}
+		});
+	}
 
 	public void update(T t) {
 

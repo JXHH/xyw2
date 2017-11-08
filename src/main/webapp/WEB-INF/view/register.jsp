@@ -34,7 +34,7 @@
 			</div>
 			<br>
 			<div class="row">
-				<input type="password" value="" class="input-text-password noPic input-click"  id="upsw2" placeholder="确认密码">
+				<input type="password" value="" class="input-text-password noPic input-click"  name="upsw2" id="upsw2" placeholder="确认密码">
 			</div>
 			<br>
 			<div class="row">

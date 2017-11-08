@@ -179,10 +179,10 @@ public class UserController {
 		User user = list.get(0);
 		user.setUpsw(request.getParameter("upsw"));	
 		userService.update(user);
-		return "/xyw2/user/login";
+		return "/login";
 		}
 		else {
-			return "/xyw2/forget";
+			return "/forget";
 		}
 		
 	}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.criterion.Criterion;
@@ -143,7 +144,7 @@ public class TraveltipController {
 	// 用户添加攻略
 	@RequestMapping(value = "/traveltip/add")
 	public String addTraveltip(Traveltip traveltip, MultipartFile file,
-			Model model, HttpSession session) throws Exception {
+			Model model, HttpSession session,HttpServletResponse response) throws Exception {
 
 		traveltipService.create(traveltip);
 
@@ -154,7 +155,9 @@ public class TraveltipController {
 			traveltip.setTtpic(ttpic.substring(6));
 			traveltipService.update(traveltip);
 		}
-		return "/success";
+		//String msg = "上传攻略成功~";
+		String str = "{\"msg\":\"上传攻略成功~\"}";  
+		return str;
 	}
 
 	// 用户修改攻略页面
@@ -288,7 +291,11 @@ public class TraveltipController {
 	@RequestMapping(value = "/user/likeTraveltip/{ttid}")
 	public String likeTraveltip(@PathVariable int ttid, Model model,
 			HttpSession session) {
-
+		
+		if(session.getAttribute("crtuid") == null){
+	   		model.addAttribute("msg", "先登录吧~");
+	   		return "/login";
+	   	}
 		TtLike like = new TtLike();
 		int luid = (Integer) session.getAttribute("crtuid");
 
@@ -307,7 +314,10 @@ public class TraveltipController {
 	@RequestMapping(value = "/user/unlikeTraveltip/{ttid}")
 	public String unlikeTraveltip(@PathVariable int ttid, Model model,
 			HttpSession session) {
-
+		if(session.getAttribute("crtuid") == null){
+	   		model.addAttribute("msg", "先登录吧~");
+	   		return "/login";
+	   	}
 		int luid = (Integer) session.getAttribute("crtuid");
 
 		ttLikeService.delete("luid=" + luid + " and lttid=" + ttid);
@@ -322,7 +332,10 @@ public class TraveltipController {
 	@RequestMapping(value = "/user/cltTraveltip/{ttid}")
 	public String cltTraveltip(@PathVariable int ttid, Model model,
 			HttpSession session) {
-
+		if(session.getAttribute("crtuid") == null){
+	   		model.addAttribute("msg", "先登录吧~");
+	   		return "/login";
+	   	}
 		TtClt clt = new TtClt();
 		int cuid = (Integer) session.getAttribute("crtuid");
 
@@ -338,7 +351,10 @@ public class TraveltipController {
 	@RequestMapping(value = "/user/uncltTraveltip/{ttid}")
 	public String uncltTraveltip(@PathVariable int ttid, Model model,
 			HttpSession session) {
-
+		if(session.getAttribute("crtuid") == null){
+	   		model.addAttribute("msg", "先登录吧~");
+	   		return "/login";
+	   	}
 		int cuid = (Integer) session.getAttribute("crtuid");
 		ttCltService.delete("cuid=" + cuid + " and cttid=" + ttid);
 
@@ -348,7 +364,10 @@ public class TraveltipController {
 	// 个人收藏
 	@RequestMapping("/user/ttclt")
 	public String ttclt(Integer pageNow, Model model, HttpSession session) {
-
+		if(session.getAttribute("crtuid") == null){
+	   		model.addAttribute("msg", "先登录吧~");
+	   		return "/login";
+	   	}
 		int pageSize = 2;
 		if (pageNow == null) {
 			pageNow = 0;
@@ -383,7 +402,10 @@ public class TraveltipController {
 	@RequestMapping(value = "/traveltipDetail/{ttid}")
 	public String traveltipDetail(@PathVariable int ttid, Integer pageNow,
 			Model model, HttpSession session) {
-
+		if(session.getAttribute("crtuid") == null){
+	   		model.addAttribute("msg", "先登录吧~");
+	   		return "/login";
+	   	}
 		int crtuid = (Integer) session.getAttribute("crtuid");
 		TraveltipOp ttop = new TraveltipOp();
 		List<Traveltip> traveltipList = new ArrayList<Traveltip>();

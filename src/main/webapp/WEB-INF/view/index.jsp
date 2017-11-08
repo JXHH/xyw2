@@ -28,10 +28,11 @@
 <script src="/xyw2/static/js/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-<%
+<%-- 
+ <%
    HttpSession u = request.getSession();  
    User user = (User)u.getAttribute("crtuser");
-%>
+%> --%>
 <header>
 	<div class="top-news">
 		   <div class="container-fluid">
@@ -93,10 +94,10 @@
 									<li><a target="_blank" class="green-nav"
 										href="/xyw2/user/person/${crtuid}">个人中心</a></li>
 									<li><a target="_blank" class="pink-nav"
-										href="/xyw2//user/myInbox">我的消息</a></li>	
+										href="/xyw2/user/myInbox">我的消息</a></li>	
  									</ul>
 									<a target="_blank" href="/xyw2/user/perCenter">
-									<img style="border-radius:15px;float:right;margin:4px 50px 0 0;" src="<%=user.getUicon() %>" width="60" height="60">
+									<img style="border-radius:15px;float:right;margin:4px 50px 0 0;" src="${crtuser.uicon }" width="60" height="60">
 									</a>
 								</c:otherwise>
 							</c:choose>
